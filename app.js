@@ -1,3 +1,11 @@
+//global variables
+let gamesPlayedCount = 0;
+let userWinCount = 0;
+let computerWinCount = 0;
+
+//start game on load
+getUserInput();
+
 // Prompt User & Gather Input
 function getUserInput() {
   let userInput;
@@ -5,7 +13,6 @@ function getUserInput() {
   console.log('userInput = ', userInput);
   validateUserInput(userInput);
 }
-getUserInput();
 
 // Validate User Input
 function validateUserInput(userInput) {
@@ -42,19 +49,21 @@ function determineWinner(userInput, computerInput) {
     console.log('no winner, select again');
     getUserInput();
   } else if (userInput === 'r' && computerInput === 's') { //rock beats scissors; winner = user
-    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}`);
-    // count win in stats
-    // display winner stats
+    userWinCount ++;
+    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);
+    getUserInput();
   } else if (userInput === 's' && computerInput === 'p') { //scissors beats paper; winner = users
-    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}`);
-    // count win in stats
-    // display winner stats
+    userWinCount ++;
+    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);
+    getUserInput();
   } else if (userInput === 'p' && computerInput === 'r') { //paper beats rock; winner = user
-    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}`);
-    // count win in stats
-    // display winner stats
+    userWinCount ++;
+    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);
+    getUserInput();
   } else { 
-    window.alert(`Computer wins = ${choices[userInput]} wins against ${choices[computerInput]}`);  //winner = computer
+    computerWinCount ++;
+    window.alert(`Computer wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);  //winner = computer
+    getUserInput();
   }
 }
 
