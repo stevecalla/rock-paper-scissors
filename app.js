@@ -34,27 +34,27 @@ function getRandomChoice() {
 
 // compare user input and computer selection
 function determineWinner(userInput, computerInput) {
+  choices = {p: 'paper', r: 'rock', s: 'scissors'};
+  console.log(choices[userInput]);
+
   if (userInput === computerInput) {
     // if no winner, select again
     console.log('no winner, select again');
     getUserInput();
-  } else if (userInput === 'r' && computerInput === 's') {
-    // declare user winner
-    window.alert('User wins = Rock wins against Scissors');
+  } else if (userInput === 'r' && computerInput === 's') { //rock beats scissors; winner = user
+    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}`);
     // count win in stats
     // display winner stats
-  } else if (userInput === 's' && computerInput === 'p') {
-    // declare user winner
-    window.alert('User wins = Rock wins against Scissors');
+  } else if (userInput === 's' && computerInput === 'p') { //scissors beats paper; winner = users
+    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}`);
     // count win in stats
     // display winner stats
-  } else if (userInput === 'p' && computerInput === 'r') {
-    // declare user winner
-    window.alert('User wins = Rock wins against Scissors');
+  } else if (userInput === 'p' && computerInput === 'r') { //paper beats rock; winner = user
+    window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}`);
     // count win in stats
     // display winner stats
   } else { 
-    window.alert(`Computer Wins = ${computerInput} wins against ${userInput}`); 
+    window.alert(`Computer wins = ${choices[userInput]} wins against ${choices[computerInput]}`);  //winner = computer
   }
 }
 
