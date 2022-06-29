@@ -1,19 +1,23 @@
 // Prompt User & Gather Input
-function userInput() {
-  window.prompt("Rock, Paper, Scissors, SHOOT!!! \nPlease enter R, P or S.");
+function getUserInput() {
+  let userInput;
+  userInput = window.prompt("Rock, Paper, Scissors, SHOOT!!! \nPlease enter R, P or S.");
+  console.log(userInput);
+  validateUserInput(userInput);
 }
-userInput();
-console.log(userInput);
+getUserInput();
 
 // Validate User Input
-if (userInput.toLowerCase() !== 'r' && 
-  userInput.toLowerCase() !== 's' && 
-  userInput.toLowerCase() !== 'p') {
-    console.log('invalid input');
-    userInput = window.prompt("Rock, Paper, Scissors, SHOOT!!!");
-  } else {
-    console.log('valid input'); // remove when complete
-  }
+function validateUserInput(userInput) {
+  if (userInput.toLowerCase() !== 'r' && 
+    userInput.toLowerCase() !== 's' && 
+    userInput.toLowerCase() !== 'p') {
+      console.log('invalid input');
+      getUserInput();
+    } else {
+      console.log('valid input'); // remove when complete
+    }
+}
 
 // set random selection by the computer
 
