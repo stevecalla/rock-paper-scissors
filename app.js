@@ -1,3 +1,9 @@
+//element variables
+let playButton = document.querySelector('button');
+
+//event listeners
+playButton.addEventListener('click', startGame);
+
 //global variables
 let gamesPlayedCount = 0;
 let userWinCount = 0;
@@ -5,10 +11,10 @@ let computerWinCount = 0;
 let tiedGamesCount = 0;
 
 //start game on load
-getUserInput();
+// getUserInput();
 
 // Prompt User & Gather Input
-function getUserInput() {
+function startGame() {
   let userInput;
   userInput = window.prompt("Rock, Paper, Scissors, SHOOT!!! \nPlease enter R, P or S.");
   // console.log('userInput = ', userInput);
@@ -21,7 +27,7 @@ function validateUserInput(userInput) {
     userInput.toLowerCase() !== 's' && 
     userInput.toLowerCase() !== 'p') {
       // console.log('invalid input');
-      getUserInput();
+      startGame();
     } else {
       // console.log('valid input'); // remove when complete
       let computerChoice = getRandomChoice();
@@ -47,7 +53,7 @@ function determineWinner(userInput, computerInput) {
   if (userInput === computerInput) { // if no winner, select again
     tiedGamesCount ++;
     console.log('no winner, select again');
-    return getUserInput();
+    return startGame();
   } else if (userInput === 'r' && computerInput === 's') { //rock beats scissors; winner = user
     winner = 'Human';
   } else if (userInput === 's' && computerInput === 'p') { //scissors beats paper; winner = user
@@ -81,7 +87,7 @@ function playAgain() {
   let playMore = window.confirm(`Click "OK" to play again & "Cancel" to exit the game.`);
   console.log(playMore);
   if (playMore) {
-    getUserInput();
+    startGame();
   }
 }
 
