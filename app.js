@@ -1,5 +1,6 @@
 //element variables
 let playButton = document.querySelector('button');
+let gameSummary = document.getElementById('game-stats');
 
 //event listeners
 playButton.addEventListener('click', startGame);
@@ -53,7 +54,8 @@ function determineWinner(userInput, computerInput) {
   if (userInput === computerInput) { // if no winner, select again
     tiedGamesCount ++;
     console.log('no winner, select again');
-    return startGame();
+    winner = 'Tie';
+    // return startGame();
   } else if (userInput === 'r' && computerInput === 's') { //rock beats scissors; winner = user
     winner = 'Human';
   } else if (userInput === 's' && computerInput === 'p') { //scissors beats paper; winner = user
@@ -72,13 +74,23 @@ function provideGameUpdate(winner, userInput, computerInput, tiedGamesCount) {
   let winnerInput;
   let loserInput;
 
-  winner === 'User' ? 
+  if (winner === 'Tie') {
+    window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nIT'S A TIE\n\nUser Win Count = ${userWinCount}\nComputer Win Count = ${computerWinCount}\nTied Game Count = ${tiedGamesCount}`);
+    return playAgain();
+  }
+
+  winner === 'Human' ? 
     (winnerInput = choices[userInput], loserInput = choices[computerInput], userWinCount ++)
     : (winnerInput = choices[computerInput], loserInput = choices[userInput], computerWinCount ++); 
+  
+  window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nWINNER ${winner.toUpperCase()}\n${winnerInput.toUpperCase()} wins against ${loserInput.toUpperCase()}\n\nUser Win Count = ${userWinCount}\nComputer Win Count = ${computerWinCount}\nTied Game Count = ${tiedGamesCount}`);
 
-  
-  window.alert(`${winner} wins = ${winnerInput} wins against ${loserInput}\n\nUser Wins = ${userWinCount}\nComputer Wins = ${computerWinCount}\nTied Games = ${tiedGamesCount}`);
-  
+  gameSummary.innerHTML = `
+    <p><strong>GAME SUMMARY</strong></p>
+    <p>User Win Count = ${userWinCount}</p>
+    <p>Computer Win Count = ${computerWinCount}</p>
+    <p>Tied Game Count = ${tiedGamesCount}</p>
+  `;
 
   playAgain();
 }
@@ -90,13 +102,6 @@ function playAgain() {
     startGame();
   }
 }
-
-
-// if winner, create count for winner / loser
-
-// count games
-
-// provide alert stats after each win... then play again upon okay
 
 
 
