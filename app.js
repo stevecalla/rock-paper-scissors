@@ -43,62 +43,37 @@ function getRandomChoice() {
 // compare user input and computer selection
 function determineWinner(userInput, computerInput) {
   let winner;
-  let winnerChoice;
-  let loserChoice;
-  let choices = {p: 'paper', r: 'rock', s: 'scissors'};
-  // console.log(choices[userInput]);
 
-  if (userInput === computerInput) {
-    // if no winner, select again
+  if (userInput === computerInput) { // if no winner, select again
     tiedGamesCount ++;
     console.log('no winner, select again');
-    getUserInput();
+    return getUserInput();
   } else if (userInput === 'r' && computerInput === 's') { //rock beats scissors; winner = user
-    userWinCount ++;
-    winner = 'User';
-    let winnerChoice = choices[userInput];
-    let loserChoice = choices[computerInput];
-    provideGameUpdate(winner, winnerChoice, userWinCount, loserChoice, computerWinCount, tiedGamesCount);
-
-    // window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);
-
-    // getUserInput();
-  } else if (userInput === 's' && computerInput === 'p') { //scissors beats paper; winner = users
-    userWinCount ++;
-    winner = 'User';
-    let winnerChoice = choices[userInput];
-    let loserChoice = choices[computerInput];
-    provideGameUpdate(winner, winnerChoice, userWinCount, loserChoice, computerWinCount, tiedGamesCount);
-
-    // window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);
-
-    // getUserInput();
+    winner = 'Human';
+  } else if (userInput === 's' && computerInput === 'p') { //scissors beats paper; winner = user
+    winner = 'Human';
   } else if (userInput === 'p' && computerInput === 'r') { //paper beats rock; winner = user
-    userWinCount ++;
-    winner = 'User';
-    let winnerChoice = choices[userInput];
-    let loserChoice = choices[computerInput];
-    provideGameUpdate(winner, winnerChoice, userWinCount, loserChoice, computerWinCount, tiesGamesCount);
-    
-    // window.alert(`User wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);
-
-    // getUserInput();
-  } else { 
-    computerWinCount ++;
+    winner = 'Human';
+  } else { //computer wins
     winner = 'Computer';
-    let winnerChoice = choices[computerInput];
-    let loserChoice = choices[userInput];
-    provideGameUpdate(winner, winnerChoice, userWinCount, loserChoice, computerWinCount, tiedGamesCount);
-
-    // window.alert(`Computer wins = ${choices[userInput]} wins against ${choices[computerInput]}\nUser wins = ${userWinCount}\nComputerWins = ${computerWinCount}`);  //winner = computer
-
-    // getUserInput();
   }
+
+  return provideGameUpdate(winner, userInput, computerInput, tiedGamesCount);
 }
 
-function provideGameUpdate(winner, winnerChoice, userWinCount, loserChoice, computerWinCount, tiedGamesCount) {
-  window.alert(`${winner} wins = ${winnerChoice} wins against ${loserChoice}\nUser Wins = ${userWinCount}\nComputer Wins = ${computerWinCount}\nTied Games = ${tiedGamesCount}`);
-  // getUserInput();
+function provideGameUpdate(winner, userInput, computerInput, tiedGamesCount) {
+  let choices = {p: 'paper', r: 'rock', s: 'scissors'};
+  let winnerInput;
+  let loserInput;
+
+  winner === 'User' ? 
+    (winnerInput = choices[userInput], loserInput = choices[computerInput], userWinCount ++)
+    : (winnerInput = choices[computerInput], loserInput = choices[userInput], computerWinCount ++); 
+
+  
+  window.alert(`${winner} wins = ${winnerInput} wins against ${loserInput}\n\nUser Wins = ${userWinCount}\nComputer Wins = ${computerWinCount}\nTied Games = ${tiedGamesCount}`);
+  
+
   playAgain();
 }
 
