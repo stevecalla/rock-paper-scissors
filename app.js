@@ -52,7 +52,7 @@ function determineWinner(userInput, computerInput) {
   let winner;
 
   if (userInput === computerInput) { // if no winner, select again
-    tiedGamesCount ++;
+    tiedGamesCount++;
     console.log('no winner, select again');
     winner = 'Tie';
     // return startGame();
@@ -74,22 +74,30 @@ function provideGameUpdate(winner, userInput, computerInput, tiedGamesCount) {
   let winnerInput;
   let loserInput;
 
-  if (winner === 'Tie') {
-    window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nIT'S A TIE\n\nUser Win Count = ${userWinCount}\nComputer Win Count = ${computerWinCount}\nTied Game Count = ${tiedGamesCount}`);
-    return playAgain();
-  }
-
   winner === 'Human' ? 
     (winnerInput = choices[userInput], loserInput = choices[computerInput], userWinCount ++)
     : (winnerInput = choices[computerInput], loserInput = choices[userInput], computerWinCount ++); 
+
   
-  window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nWINNER ${winner.toUpperCase()}\n${winnerInput.toUpperCase()} wins against ${loserInput.toUpperCase()}\n\nUser Win Count = ${userWinCount}\nComputer Win Count = ${computerWinCount}\nTied Game Count = ${tiedGamesCount}`);
+  let totalGameCount = userWinCount + computerWinCount + tiedGamesCount;
+  let userWinPercent = userWinCount === 0 ? 0 : Math.round(userWinCount / totalGameCount * 100);
+  let computerWinPercent = computerWinCount === 0 ? 0 : Math.round(computerWinCount / totalGameCount * 100);
+  let tiedGamePercent = tiedGamesCount === 0 ? 0 : Math.round(tiedGamesCount / totalGameCount * 100);
+  console.log(totalGameCount, userWinPercent, computerWinCount, tiedGamePercent);
+
+  if (winner === 'Tie') {
+    window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nIT'S A TIE\n\nHumanr Win Count = ${userWinCount}, Percent = ${userWinPercent}%\nComputer Win Count = ${computerWinCount}, Percent = ${computerWinPercent}%\nTied Game Count = ${tiedGamesCount}, Percent = ${tiedGamePercent}%\nTotal Game Count = ${totalGameCount}`);
+    return playAgain();  
+    }
+  
+  window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nWINNER ${winner.toUpperCase()}\n${winnerInput.toUpperCase()} wins against ${loserInput.toUpperCase()}\n\nHuman Win Count = ${userWinCount}, Percent = ${userWinPercent}%\nComputer Win Count = ${computerWinCount}, Percent = ${computerWinPercent}%\nTied Game Count = ${tiedGamesCount}, Percent = ${tiedGamePercent}%\nTotal Game Count = ${totalGameCount}`);
 
   gameSummary.innerHTML = `
     <p><strong>GAME SUMMARY</strong></p>
-    <p>User Win Count = ${userWinCount}</p>
-    <p>Computer Win Count = ${computerWinCount}</p>
-    <p>Tied Game Count = ${tiedGamesCount}</p>
+    <p>User Win Count = ${userWinCount}, Percent = ${userWinPercent}%</p>
+    <p>Computer Win Count = ${computerWinCount}, Percent = ${computerWinPercent}%</p>
+    <p>Tied Game Count = ${tiedGamesCount}, Percent = ${tiedGamePercent}%</p>
+    <p>Total Game Count = ${totalGameCount}</p>
   `;
 
   playAgain();
