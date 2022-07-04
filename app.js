@@ -18,13 +18,17 @@ let tiedGamesCount = 0;
 function startGame() {
   let userInput;
   userInput = window.prompt("Rock, Paper, Scissors, SHOOT!!! \nPlease enter R, P or S.");
+  console.log(gamesPlayedCount);
   // console.log('userInput = ', userInput);
   validateUserInput(userInput);
 }
 
 // Validate User Input
 function validateUserInput(userInput) {
-  if (userInput.toLowerCase() !== 'r' && 
+  if (userInput === null) {
+    return;
+  } else if
+    (userInput.toLowerCase() !== 'r' && 
     userInput.toLowerCase() !== 's' && 
     userInput.toLowerCase() !== 'p') {
       // console.log('invalid input');
@@ -52,45 +56,66 @@ function determineWinner(userInput, computerInput) {
   let winner;
 
   if (userInput === computerInput) { // if no winner, select again
-    tiedGamesCount++;
+    // tiedGamesCount++;
     console.log('no winner, select again');
     winner = 'Tie';
     // return startGame();
   } else if (userInput === 'r' && computerInput === 's') { //rock beats scissors; winner = user
     winner = 'Human';
+    console.log(winner, 1)
   } else if (userInput === 's' && computerInput === 'p') { //scissors beats paper; winner = user
     winner = 'Human';
+    console.log(winner, 2)
   } else if (userInput === 'p' && computerInput === 'r') { //paper beats rock; winner = user
     winner = 'Human';
+    console.log(winner, 3)
   } else { //computer wins
     winner = 'Computer';
+    console.log(winner, 4)
   }
 
-  return provideGameUpdate(winner, userInput, computerInput, tiedGamesCount);
+  return provideGameUpdate(winner, userInput, computerInput);
 }
 
-function provideGameUpdate(winner, userInput, computerInput, tiedGamesCount) {
+function provideGameUpdate(winner, userInput, computerInput) {
+  console.log(winner, userInput, computerInput);
   let choices = {p: 'paper', r: 'rock', s: 'scissors'};
   let winnerInput;
   let loserInput;
 
-  winner === 'Human' ? 
-    (winnerInput = choices[userInput], loserInput = choices[computerInput], userWinCount ++)
-    : (winnerInput = choices[computerInput], loserInput = choices[userInput], computerWinCount ++); 
+  // winner === 'Human' ? 
+  //   (winnerInput = choices[userInput], loserInput = choices[computerInput], userWinCount++)
+  //   : (winnerInput = choices[computerInput], loserInput = choices[userInput], computerWinCount++); 
 
-  
+  if (winner === 'Human') {
+    winnerInput = choices[userInput];
+    loserInput = choices[computerInput];
+    userWinCount++;
+  } else if (winner === 'Computer') {
+    winnerInput = choices[computerInput];
+    loserInput = choices[userInput];
+    computerWinCount++;
+    console.log('computer count')
+  } else {
+    tiedGamesCount++;
+    console.log('tie count')
+  }
+
+    
   let totalGameCount = userWinCount + computerWinCount + tiedGamesCount;
+
   let userWinPercent = userWinCount === 0 ? 0 : Math.round(userWinCount / totalGameCount * 100);
   let computerWinPercent = computerWinCount === 0 ? 0 : Math.round(computerWinCount / totalGameCount * 100);
   let tiedGamePercent = tiedGamesCount === 0 ? 0 : Math.round(tiedGamesCount / totalGameCount * 100);
+
   console.log(totalGameCount, userWinPercent, computerWinCount, tiedGamePercent);
 
   if (winner === 'Tie') {
     window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nIT'S A TIE\n\nHumanr Win Count = ${userWinCount}, Percent = ${userWinPercent}%\nComputer Win Count = ${computerWinCount}, Percent = ${computerWinPercent}%\nTied Game Count = ${tiedGamesCount}, Percent = ${tiedGamePercent}%\nTotal Game Count = ${totalGameCount}`);
-    return playAgain();  
-    }
-  
-  window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nWINNER ${winner.toUpperCase()}\n${winnerInput.toUpperCase()} wins against ${loserInput.toUpperCase()}\n\nHuman Win Count = ${userWinCount}, Percent = ${userWinPercent}%\nComputer Win Count = ${computerWinCount}, Percent = ${computerWinPercent}%\nTied Game Count = ${tiedGamesCount}, Percent = ${tiedGamePercent}%\nTotal Game Count = ${totalGameCount}`);
+    // return playAgain();  
+  } else {
+    window.alert(`Human selects ${choices[userInput]}.\nComputer selects ${choices[computerInput]}.\n\nWINNER ${winner.toUpperCase()}\n${winnerInput.toUpperCase()} wins against ${loserInput.toUpperCase()}\n\nHuman Win Count = ${userWinCount}, Percent = ${userWinPercent}%\nComputer Win Count = ${computerWinCount}, Percent = ${computerWinPercent}%\nTied Game Count = ${tiedGamesCount}, Percent = ${tiedGamePercent}%\nTotal Game Count = ${totalGameCount}`)
+  };
 
   gameSummary.innerHTML = `
     <p><strong>GAME SUMMARY</strong></p>
